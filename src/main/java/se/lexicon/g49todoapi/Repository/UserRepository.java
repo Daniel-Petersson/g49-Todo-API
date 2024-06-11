@@ -1,6 +1,6 @@
-package Repository;
+package se.lexicon.g49todoapi.Repository;
 
-import domain.entity.User;
+import se.lexicon.g49todoapi.entity.User;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

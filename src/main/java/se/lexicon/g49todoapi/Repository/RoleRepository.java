@@ -1,6 +1,6 @@
-package Repository;
+package se.lexicon.g49todoapi.Repository;
 
-import domain.entity.Role;
+import se.lexicon.g49todoapi.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

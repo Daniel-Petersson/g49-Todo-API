@@ -1,7 +1,7 @@
-package service;
+package se.lexicon.g49todoapi.service;
 
-import domain.dto.UserDTOForm;
-import domain.dto.UserDTOView;
+import se.lexicon.g49todoapi.domain.dto.UserDTOForm;
+import se.lexicon.g49todoapi.domain.dto.UserDTOView;
 import org.springframework.stereotype.Service;
 
 @Service

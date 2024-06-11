@@ -1,7 +1,7 @@
-package service;
+package se.lexicon.g49todoapi.service;
 
-import domain.dto.UserDTOForm;
-import domain.dto.UserDTOView;
+import se.lexicon.g49todoapi.domain.dto.UserDTOForm;
+import se.lexicon.g49todoapi.domain.dto.UserDTOView;
 
 public interface UserService {
     // Method to register a new user and return the view representation of the user

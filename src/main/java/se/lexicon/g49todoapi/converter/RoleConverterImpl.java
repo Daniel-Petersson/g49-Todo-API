@@ -1,16 +1,15 @@
-package converter;
+package se.lexicon.g49todoapi.converter;
 
-import domain.dto.RoleDTOView;
-import domain.entity.Role;
-import jakarta.persistence.Converter;
+import se.lexicon.g49todoapi.domain.dto.RoleDTOView;
+import se.lexicon.g49todoapi.entity.Role;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RoleConverterImpl implements RoleConverter{
     @Override
     public RoleDTOView toRoleDTO(Role entity) {
-        RoleDTOView roleDTOView = new RoleDTOView(entity.getId(), entity.getName());
-        return roleDTOView;
+        return new RoleDTOView(entity.getId(), entity.getName());
+
     }
 
     @Override

@@ -1,7 +1,7 @@
-package startup;
+package se.lexicon.g49todoapi.startup;
 
-import Repository.RoleRepository;
-import domain.entity.Role;
+import se.lexicon.g49todoapi.Repository.RoleRepository;
+import se.lexicon.g49todoapi.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

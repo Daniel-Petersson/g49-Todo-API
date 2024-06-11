@@ -1,4 +1,4 @@
-package domain.dto;
+package se.lexicon.g49todoapi.domain.dto;
 
 import lombok.*;
 
