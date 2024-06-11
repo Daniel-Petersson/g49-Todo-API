@@ -1,4 +1,4 @@
-package entity;
+package domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
