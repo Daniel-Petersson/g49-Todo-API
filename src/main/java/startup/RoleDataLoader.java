@@ -27,12 +27,9 @@ public class RoleDataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("#########################");
-        // execute this logic...
-        // How to call save method of RoleRepository Interface?
         roleRepository.save(new Role("ADMIN"));
         roleRepository.save(new Role("USER"));
         roleRepository.save(new Role("GUEST"));
-        // add more roles as needed
+
     }
 }
