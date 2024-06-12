@@ -3,7 +3,7 @@ package se.lexicon.g49todoapi.service;
 import se.lexicon.g49todoapi.Repository.RoleRepository;
 import se.lexicon.g49todoapi.converter.RoleConverter;
 import se.lexicon.g49todoapi.domain.dto.RoleDTOView;
-import se.lexicon.g49todoapi.entity.Role;
+import se.lexicon.g49todoapi.domain.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
