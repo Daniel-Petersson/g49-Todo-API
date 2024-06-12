@@ -1,4 +1,4 @@
-package se.lexicon.g49todoapi.entity;
+package se.lexicon.g49todoapi.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -44,7 +44,7 @@ public class User {
 
     public void removeRole(Role role){
         if (role== null)throw new IllegalArgumentException("Role cannot be null");
-        if (role != null){
+        if (roles != null){
             System.out.println("Role added successfully");
             roles.remove(role);
         }else throw new IllegalArgumentException("Cant find matching role");
