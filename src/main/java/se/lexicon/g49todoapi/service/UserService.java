@@ -1,8 +1,10 @@
 package se.lexicon.g49todoapi.service;
 
+import org.springframework.stereotype.Service;
 import se.lexicon.g49todoapi.domain.dto.UserDTOForm;
 import se.lexicon.g49todoapi.domain.dto.UserDTOView;
 
+@Service
 public interface UserService {
     // Method to register a new user and return the view representation of the user
     UserDTOView register(UserDTOForm userDTOForm);
