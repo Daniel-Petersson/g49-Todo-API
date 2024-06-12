@@ -1,9 +1,24 @@
 package se.lexicon.g49todoapi.service;
 
+import org.springframework.stereotype.Service;
+import se.lexicon.g49todoapi.domain.dto.PersonDTOForm;
+import se.lexicon.g49todoapi.domain.dto.PersonDTOView;
+import se.lexicon.g49todoapi.domain.entity.Person;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+@Service
 public interface PersonService {
-    //todo create
+    // create
+    PersonDTOView create(PersonDTOForm personDTOForm);
     // findById
+    PersonDTOView findById(Long id);
     // findAll
+    List<PersonDTOView> findAll();
     // update
+    PersonDTOView update(PersonDTOForm personDTOForm);
     // delete
+    void remove(Long id);
 }
