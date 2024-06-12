@@ -11,5 +11,5 @@ import java.util.Set;
 @Builder
 public class UserDTOView {
     private String email;
-    private Set<RoleDTOForm> roles;
+    private Set<RoleDTOView> roles;
 }
