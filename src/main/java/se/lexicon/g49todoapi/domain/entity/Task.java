@@ -9,6 +9,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@EqualsAndHashCode(exclude = "person") // exclude so i dont get infinit loop
+@ToString(exclude = "person")
 
 @Entity
 public class Task {

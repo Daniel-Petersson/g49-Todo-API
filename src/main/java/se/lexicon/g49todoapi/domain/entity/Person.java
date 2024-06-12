@@ -12,6 +12,8 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@EqualsAndHashCode(exclude = {"tasks", "user"})
+
 
 @Entity
 public class Person {
