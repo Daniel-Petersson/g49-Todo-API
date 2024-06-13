@@ -3,7 +3,6 @@ package se.lexicon.g49todoapi.service;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import se.lexicon.g49todoapi.Repository.PersonRepository;
 import se.lexicon.g49todoapi.Repository.TaskRepository;
 import se.lexicon.g49todoapi.domain.dto.TaskDTOForm;
 import se.lexicon.g49todoapi.domain.dto.TaskDtoView;
@@ -37,14 +36,14 @@ public class TaskServiceImpl implements TaskService {
                 .build();
         Task savedTask = taskRepository.save(task);
 
-        return getBuild(savedTask);
+        return convertToDTOView(savedTask);
     }
 
     @Override
     public TaskDtoView findById(Long id) {
         Task task = getTask(id);
 
-        return getBuild(task);
+        return convertToDTOView(task);
     }
 
     private Task getTask(Long id) {
@@ -62,10 +61,11 @@ public class TaskServiceImpl implements TaskService {
     @Transactional
     public TaskDtoView update(TaskDTOForm taskDTOForm) {
         Task task = getTask(taskDTOForm.getId());
-        return getBuild(task);
+        return convertToDTOView(task);
     }
 
     @Override
+    @Transactional
     public void remove(Long id) {
         Task task = getTask(id);
         taskRepository.delete(task);
@@ -96,16 +96,16 @@ public class TaskServiceImpl implements TaskService {
         return getTaskDtoViews(tasks);
     }
 
-    private static List<TaskDtoView> getTaskDtoViews(List<Task> tasks) {
+    private List<TaskDtoView> getTaskDtoViews(List<Task> tasks) {
         List<TaskDtoView> taskDtoViews = new ArrayList<>();
         for (Task entity : tasks){
-            taskDtoViews.add(getBuild(entity));
+            taskDtoViews.add(convertToDTOView(entity));
         }
         return taskDtoViews;
     }
 
 
-    private static TaskDtoView getBuild(Task task) {
+    private TaskDtoView convertToDTOView(Task task) {
         return TaskDtoView.builder()
                 .id(task.getId())
                 .title(task.getTitle())
