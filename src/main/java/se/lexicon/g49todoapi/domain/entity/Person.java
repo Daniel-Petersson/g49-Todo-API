@@ -13,7 +13,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode(exclude = {"tasks", "user"})
-
+@Builder
 
 @Entity
 public class Person {
