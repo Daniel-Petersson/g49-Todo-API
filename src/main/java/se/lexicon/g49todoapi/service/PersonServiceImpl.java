@@ -57,11 +57,15 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    @Transactional
-    public PersonDTOView update(PersonDTOForm personDTOForm) {
-        Person person = getPerson(personDTOForm.getId());
-        return convertToDTOView(person);
-    }
+@Transactional
+public PersonDTOView update(PersonDTOForm personDTOForm) {
+    if (personDTOForm == null) throw new IllegalArgumentException("Form cannot be empty");
+    Person existingPerson = personRepository.findById(personDTOForm.getId())
+            .orElseThrow(() -> new IllegalArgumentException("Person with the id: " + personDTOForm.getId() + " not found"));
+    existingPerson.setName(personDTOForm.getName());
+    Person updatedPerson = personRepository.save(existingPerson);
+    return convertToDTOView(updatedPerson);
+}
 
     @Override
     @Transactional

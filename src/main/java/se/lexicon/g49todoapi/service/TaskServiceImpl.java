@@ -61,8 +61,15 @@ public class TaskServiceImpl implements TaskService {
     @Override
     @Transactional
     public TaskDtoView update(TaskDTOForm taskDTOForm) {
-        Task task = getTask(taskDTOForm.getId());
-        return convertToDTOView(task);
+        if (taskDTOForm == null) throw new IllegalArgumentException("Form cannot be empty");
+        Task existingTask = taskRepository.findById(taskDTOForm.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Task with the id: " + taskDTOForm.getId() + " not found"));
+        existingTask.setTitle(taskDTOForm.getTitle());
+        existingTask.setDescription(taskDTOForm.getDescription());
+        existingTask.setDeadline(taskDTOForm.getDeadline());
+        existingTask.setDone(taskDTOForm.isDone());
+        Task updatedTask = taskRepository.save(existingTask);
+        return convertToDTOView(updatedTask);
     }
 
     @Override
