@@ -6,8 +6,6 @@ import se.lexicon.g49todoapi.domain.dto.PersonDTOView;
 import se.lexicon.g49todoapi.domain.entity.Person;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 @Service
 public interface PersonService {
