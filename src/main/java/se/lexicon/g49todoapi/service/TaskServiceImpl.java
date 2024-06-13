@@ -75,28 +75,28 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<TaskDtoView> findTasksByPersonId(Long personId) {
         List<Task> tasks = taskRepository.findByPersonId(personId);
-        return getTaskDtoViews(tasks);
+        return convertToDTOViewList(tasks);
     }
 
     @Override
     public List<TaskDtoView> findTasksBetweenStartAndENdDate(LocalDate start, LocalDate end) {
         List<Task> tasks = taskRepository.findByDeadlineBetween(start, end);
-        return getTaskDtoViews(tasks);
+        return convertToDTOViewList(tasks);
     }
 
     @Override
     public List<TaskDtoView> findAllUnassignedTodoItems() {
         List<Task> tasks = taskRepository.selectUnFinishedTasks();
-        return getTaskDtoViews(tasks);
+        return convertToDTOViewList(tasks);
     }
 
     @Override
     public List<TaskDtoView> findAllUnfinishedTasksAndOverdue() {
         List<Task> tasks = taskRepository.selectUnFinishedAndOverdueTasks();
-        return getTaskDtoViews(tasks);
+        return convertToDTOViewList(tasks);
     }
 
-    private List<TaskDtoView> getTaskDtoViews(List<Task> tasks) {
+    private List<TaskDtoView> convertToDTOViewList(List<Task> tasks) {
         List<TaskDtoView> taskDtoViews = new ArrayList<>();
         for (Task entity : tasks){
             taskDtoViews.add(convertToDTOView(entity));
