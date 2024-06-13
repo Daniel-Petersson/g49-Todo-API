@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Data
 @EqualsAndHashCode(exclude = "person") // exclude so i dont get infinit loop
 @ToString(exclude = "person")
-
+@Builder
 @Entity
 public class Task {
 
