@@ -25,6 +25,7 @@ public class PersonServiceImpl implements PersonService {
 
 
     @Override
+    @Transactional
     public PersonDTOView create(PersonDTOForm personDTOForm) {
         //Validate input
         if (personDTOForm == null) throw new IllegalArgumentException("Form cannot be empty");

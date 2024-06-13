@@ -24,6 +24,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @Transactional
     public TaskDtoView create(TaskDTOForm taskDTOForm) {
         if (taskDTOForm == null) throw new IllegalArgumentException("Form cannot be empty");
         Optional<Task> existingTask = taskRepository.findById(taskDTOForm.getId());

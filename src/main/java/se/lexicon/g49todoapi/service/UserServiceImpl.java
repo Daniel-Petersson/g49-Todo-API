@@ -1,5 +1,6 @@
 package se.lexicon.g49todoapi.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import se.lexicon.g49todoapi.Repository.RoleRepository;
 import se.lexicon.g49todoapi.Repository.UserRepository;
@@ -34,6 +35,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    @Transactional
     public UserDTOView register(UserDTOForm userDTOForm) {
         //input validation
         if (userDTOForm == null) throw new IllegalArgumentException("Form cannot be empty");
