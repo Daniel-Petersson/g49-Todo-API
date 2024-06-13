@@ -1,5 +1,6 @@
 package se.lexicon.g49todoapi.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.lexicon.g49todoapi.Repository.PersonRepository;
@@ -49,19 +50,20 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public List<PersonDTOView> findAll() {
         List<Person> persons = personRepository.findAll();
-
         return persons.stream()
-                .map(person -> convertToDTOView(person))
+                .map(this::convertToDTOView)
                 .collect(Collectors.toList());
     }
 
     @Override
+    @Transactional
     public PersonDTOView update(PersonDTOForm personDTOForm) {
         Person person = getPerson(personDTOForm.getId());
         return convertToDTOView(person);
     }
 
     @Override
+    @Transactional
     public void remove(Long id) {
         Person person = getPerson(id);
         personRepository.delete(person);
@@ -72,7 +74,7 @@ public class PersonServiceImpl implements PersonService {
                 .orElseThrow(() -> new IllegalArgumentException("Person not found with the id: " + id));
     }
 
-    private static PersonDTOView convertToDTOView(Person person) {
+    private PersonDTOView convertToDTOView(Person person) {
         return PersonDTOView.builder()
                 .id(person.getId())
                 .name(person.getName())
