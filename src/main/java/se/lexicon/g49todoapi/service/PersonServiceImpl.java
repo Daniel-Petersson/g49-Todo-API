@@ -37,19 +37,13 @@ public class PersonServiceImpl implements PersonService {
         //Save person
         Person savedPerson = personRepository.save(person);
         //convert and return person to dto
-        return PersonDTOView.builder()
-                .id(savedPerson.getId())
-                .name(savedPerson.getName())
-                .build();
+        return convertToDTOView(savedPerson);
     }
 
     @Override
     public PersonDTOView findById(Long id) {
         Person person = getPerson(id);
-        return PersonDTOView.builder()
-                .id(person.getId())
-                .name(person.getName())
-                .build();
+        return convertToDTOView(person);
     }
 
     @Override
@@ -57,20 +51,14 @@ public class PersonServiceImpl implements PersonService {
         List<Person> persons = personRepository.findAll();
 
         return persons.stream()
-                .map(person -> PersonDTOView.builder()
-                        .id(person.getId())
-                        .name(person.getName())
-                        .build())
+                .map(person -> convertToDTOView(person))
                 .collect(Collectors.toList());
     }
 
     @Override
     public PersonDTOView update(PersonDTOForm personDTOForm) {
         Person person = getPerson(personDTOForm.getId());
-        return PersonDTOView.builder()
-                .id(person.getId())
-                .name(person.getName())
-                .build();
+        return convertToDTOView(person);
     }
 
     @Override
@@ -82,5 +70,12 @@ public class PersonServiceImpl implements PersonService {
     private Person getPerson(Long id) {
         return personRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Person not found with the id: " + id));
+    }
+
+    private static PersonDTOView convertToDTOView(Person person) {
+        return PersonDTOView.builder()
+                .id(person.getId())
+                .name(person.getName())
+                .build();
     }
 }
