@@ -30,8 +30,7 @@ public class PersonServiceImpl implements PersonService {
         //Validate input
         if (personDTOForm == null) throw new IllegalArgumentException("Form cannot be empty");
         //Validate person doesn't all ready exist
-        Optional<Person> existingPerson = personRepository.findById(personDTOForm.getId());
-        if (existingPerson.isPresent()) throw new IllegalArgumentException("Person already exist");
+
         //Create person
         Person person = Person.builder()
                 .name(personDTOForm.getName())
