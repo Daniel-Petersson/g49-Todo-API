@@ -1,8 +1,10 @@
 package se.lexicon.g49todoapi.converter;
 
 import se.lexicon.g49todoapi.domain.dto.RoleDTOView;
+
 import se.lexicon.g49todoapi.domain.entity.Role;
 import org.springframework.stereotype.Component;
+
 
 @Component
 public class RoleConverterImpl implements RoleConverter{
@@ -26,4 +28,6 @@ public class RoleConverterImpl implements RoleConverter{
                 .build();
         //return new Role(dto.getId(), dto.getName());
     }
+
+
 }

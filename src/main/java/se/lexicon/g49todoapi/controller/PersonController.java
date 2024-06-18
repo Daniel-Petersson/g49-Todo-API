@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.*;
 import se.lexicon.g49todoapi.domain.dto.PersonDTOForm;
 import se.lexicon.g49todoapi.domain.dto.PersonDTOView;
 import se.lexicon.g49todoapi.domain.entity.Person;
+import se.lexicon.g49todoapi.domain.entity.User;
+import se.lexicon.g49todoapi.service.PersonService;
 import se.lexicon.g49todoapi.service.PersonServiceImpl;
+import se.lexicon.g49todoapi.service.UserService;
 
 import java.util.List;
 
@@ -16,7 +19,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/persons")
 public class PersonController {
-    private PersonServiceImpl personService;
+    private PersonService personService;
+    private UserService userService;
 
     @GetMapping
     public ResponseEntity<List<PersonDTOView>> getAllPersons(){
@@ -25,7 +29,7 @@ public class PersonController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<PersonDTOView> getPersonByid(@PathVariable("id") Long id){
+    public ResponseEntity<PersonDTOView> getPersonById(@PathVariable("id") Long id){
         PersonDTOView responseBody = personService.findById(id);
         return ResponseEntity.ok(responseBody);
     }
