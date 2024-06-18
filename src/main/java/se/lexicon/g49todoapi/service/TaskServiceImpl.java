@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.lexicon.g49todoapi.Repository.TaskRepository;
 import se.lexicon.g49todoapi.domain.dto.TaskDTOForm;
-import se.lexicon.g49todoapi.domain.dto.TaskDtoView;
+import se.lexicon.g49todoapi.domain.dto.TaskDTOView;
 import se.lexicon.g49todoapi.domain.entity.Task;
 
 import java.time.LocalDate;
@@ -25,10 +25,10 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     @Transactional
-    public TaskDtoView create(TaskDTOForm taskDTOForm) {
+    public TaskDTOView create(TaskDTOForm taskDTOForm) {
         if (taskDTOForm == null) throw new IllegalArgumentException("Form cannot be empty");
-        Optional<Task> existingTask = taskRepository.findById(taskDTOForm.getId());
-        if (existingTask.isPresent())throw new IllegalArgumentException("Task already exist");
+        //Optional<Task> existingTask = taskRepository.findById(taskDTOForm.getId());
+        //if (existingTask.isPresent())throw new IllegalArgumentException("Task already exist");
         Task task = Task.builder()
                 .title(taskDTOForm.getTitle())
                 .description(taskDTOForm.getDescription())
@@ -41,26 +41,15 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public TaskDtoView findById(Long id) {
+    public TaskDTOView findById(Long id) {
         Task task = getTask(id);
 
         return convertToDTOView(task);
     }
 
-    private Task getTask(Long id) {
-        Task task;
-        Optional<Task> taskOptional = taskRepository.findById(id);
-        if (taskOptional.isPresent()) {
-            task = taskOptional.get();
-        } else {
-            throw new IllegalArgumentException("Task with the id: " + id + " not found");
-        }
-        return task;
-    }
-
     @Override
     @Transactional
-    public TaskDtoView update(TaskDTOForm taskDTOForm) {
+    public TaskDTOView update(TaskDTOForm taskDTOForm) {
         if (taskDTOForm == null) throw new IllegalArgumentException("Form cannot be empty");
         Task existingTask = taskRepository.findById(taskDTOForm.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Task with the id: " + taskDTOForm.getId() + " not found"));
@@ -81,40 +70,51 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskDtoView> findTasksByPersonId(Long personId) {
+    public List<TaskDTOView> findTasksByPersonId(Long personId) {
         List<Task> tasks = taskRepository.findByPersonId(personId);
         return convertToDTOViewList(tasks);
     }
 
     @Override
-    public List<TaskDtoView> findTasksBetweenStartAndENdDate(LocalDate start, LocalDate end) {
+    public List<TaskDTOView> findTasksBetweenStartAndENdDate(LocalDate start, LocalDate end) {
         List<Task> tasks = taskRepository.findByDeadlineBetween(start, end);
         return convertToDTOViewList(tasks);
     }
 
     @Override
-    public List<TaskDtoView> findAllUnassignedTodoItems() {
+    public List<TaskDTOView> findAllUnassignedTodoItems() {
         List<Task> tasks = taskRepository.selectUnFinishedTasks();
         return convertToDTOViewList(tasks);
     }
 
     @Override
-    public List<TaskDtoView> findAllUnfinishedTasksAndOverdue() {
+    public List<TaskDTOView> findAllUnfinishedTasksAndOverdue() {
         List<Task> tasks = taskRepository.selectUnFinishedAndOverdueTasks();
         return convertToDTOViewList(tasks);
     }
 
-    private List<TaskDtoView> convertToDTOViewList(List<Task> tasks) {
-        List<TaskDtoView> taskDtoViews = new ArrayList<>();
+    private List<TaskDTOView> convertToDTOViewList(List<Task> tasks) {
+        List<TaskDTOView> taskDTOViews = new ArrayList<>();
         for (Task entity : tasks){
-            taskDtoViews.add(convertToDTOView(entity));
+            taskDTOViews.add(convertToDTOView(entity));
         }
-        return taskDtoViews;
+        return taskDTOViews;
     }
 
 
-    private TaskDtoView convertToDTOView(Task task) {
-        return TaskDtoView.builder()
+    private Task getTask(Long id) {
+        Task task;
+        Optional<Task> taskOptional = taskRepository.findById(id);
+        if (taskOptional.isPresent()) {
+            task = taskOptional.get();
+        } else {
+            throw new IllegalArgumentException("Task with the id: " + id + " not found");
+        }
+        return task;
+    }
+
+    private TaskDTOView convertToDTOView(Task task) {
+        return TaskDTOView.builder()
                 .id(task.getId())
                 .title(task.getTitle())
                 .description(task.getDescription())
