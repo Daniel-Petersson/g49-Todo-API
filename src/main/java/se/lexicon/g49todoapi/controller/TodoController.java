@@ -1,23 +1,29 @@
 package se.lexicon.g49todoapi.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.lexicon.g49todoapi.domain.dto.TaskDTOForm;
 import se.lexicon.g49todoapi.domain.dto.TaskDTOView;
+import se.lexicon.g49todoapi.service.TaskService;
 import se.lexicon.g49todoapi.service.TaskServiceImpl;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@AllArgsConstructor
+
 @RestController
 @RequestMapping("/api/todo")
 public class TodoController {
 
-    private TaskServiceImpl taskService;
+  private TaskService taskService;
 
+  @Autowired
+    public TodoController(TaskService taskService) {
+        this.taskService = taskService;
+    }
 
     @GetMapping("{id}")
     public ResponseEntity<TaskDTOView> getTaskById(@PathVariable("id")Long id){
@@ -50,13 +56,13 @@ public class TodoController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<TaskDTOView> doRegister(TaskDTOForm taskDTOForm){
+    public ResponseEntity<TaskDTOView> doRegister(@RequestBody TaskDTOForm taskDTOForm){
         TaskDTOView responseBody = taskService.create(taskDTOForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseBody);
     }
 
     @PutMapping("/")
-    public ResponseEntity<TaskDTOView> doUpdate(TaskDTOForm taskDTOForm){
+    public ResponseEntity<TaskDTOView> doUpdate(@RequestBody TaskDTOForm taskDTOForm){
         TaskDTOView responseBody = taskService.update(taskDTOForm);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(responseBody);
     }
