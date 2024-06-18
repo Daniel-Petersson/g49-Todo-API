@@ -1,7 +1,6 @@
 package se.lexicon.g49todoapi.domain.dto;
 
 import lombok.*;
-import se.lexicon.g49todoapi.domain.entity.Person;
 
 import java.time.LocalDate;
 @Getter
@@ -9,7 +8,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TaskDtoView {
+public class TaskDTOView {
     private Long id;
     private String title;
     private String description;
