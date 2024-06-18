@@ -8,7 +8,6 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @EqualsAndHashCode(exclude = "person") // exclude so i dont get infinit loop
 @ToString(exclude = "person")
 @Builder
