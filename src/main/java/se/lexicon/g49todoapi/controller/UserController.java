@@ -1,5 +1,7 @@
 package se.lexicon.g49todoapi.controller;
 
+import jakarta.validation.Valid;
+
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +18,13 @@ public class UserController {
 
 
     @GetMapping("{email}")
-    public ResponseEntity<UserDTOView> getUserByEmail(@PathVariable("email") String email) {
+    public ResponseEntity<UserDTOView> getUserByEmail(@PathVariable("email")String email) {
         UserDTOView userDTOView = userService.getByEmail(email);
         return ResponseEntity.ok(userDTOView);
     }
 
     @PostMapping("/")
-    public ResponseEntity<UserDTOView> doRegister(@RequestBody UserDTOForm userDTOForm) {
+    public ResponseEntity<UserDTOView> doRegister(@RequestBody @Valid UserDTOForm userDTOForm) { //validation in DTOForm
         UserDTOView responseBody = userService.register(userDTOForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseBody);
     }
@@ -35,7 +37,7 @@ public class UserController {
     }
 
     @PutMapping("/{email}/disable")
-    public ResponseEntity<Void> disableUserByEmail(@PathVariable("email") String  email){
+    public ResponseEntity<Void> disableUserByEmail(@PathVariable("email") String email) {
         userService.disableByEmail(email);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
