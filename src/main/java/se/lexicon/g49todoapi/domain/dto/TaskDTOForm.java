@@ -15,5 +15,5 @@ public class TaskDTOForm {
     private String description;
     private LocalDate deadline;
     private boolean done;
-    private PersonDTOForm person;
+    private Long assignedPerson;
 }
