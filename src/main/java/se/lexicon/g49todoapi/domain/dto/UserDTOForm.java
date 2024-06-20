@@ -1,5 +1,7 @@
 package se.lexicon.g49todoapi.domain.dto;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.util.Set;
@@ -9,8 +11,10 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 public class UserDTOForm {
+
     private String email;
     private String password;
+
     private Set<RoleDTOForm> roles;
 
 
