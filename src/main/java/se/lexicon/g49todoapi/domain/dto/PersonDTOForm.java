@@ -13,8 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class PersonDTOForm {
-    private Long id;
+
     private String name;
-    private UserDTOForm user;
-    private List<TaskDTOForm> tasks = new ArrayList<>();
+    private String email;
 }
