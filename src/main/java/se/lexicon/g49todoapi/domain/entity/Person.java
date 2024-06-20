@@ -14,7 +14,7 @@ import java.util.Objects;
 @Data
 @EqualsAndHashCode(exclude = {"tasks", "user"})
 @Builder
-
+@ToString(exclude = "tasks")
 @Entity
 public class Person {
     @Id
@@ -24,7 +24,7 @@ public class Person {
     private String name;
 
     @OneToOne
-    @JoinColumn(name = "email")
+    @JoinColumn(name = "user_email")
     private User user;
 
     @OneToMany(mappedBy = "person")
