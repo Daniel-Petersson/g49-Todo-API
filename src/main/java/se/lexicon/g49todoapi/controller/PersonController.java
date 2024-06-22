@@ -2,15 +2,11 @@ package se.lexicon.g49todoapi.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.lexicon.g49todoapi.domain.dto.PersonDTOForm;
 import se.lexicon.g49todoapi.domain.dto.PersonDTOView;
-import se.lexicon.g49todoapi.domain.entity.Person;
-import se.lexicon.g49todoapi.domain.entity.User;
 import se.lexicon.g49todoapi.service.PersonService;
-import se.lexicon.g49todoapi.service.PersonServiceImpl;
 import se.lexicon.g49todoapi.service.UserService;
 
 import java.util.List;
@@ -25,6 +21,9 @@ public class PersonController {
     @GetMapping
     public ResponseEntity<List<PersonDTOView>> getAllPersons(){
         List<PersonDTOView> persons = personService.findAll();
+        for (PersonDTOView person : persons){
+            System.out.println(person.toString());
+        }
         return ResponseEntity.ok(persons);
     }
 

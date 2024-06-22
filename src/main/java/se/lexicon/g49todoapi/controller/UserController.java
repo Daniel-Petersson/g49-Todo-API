@@ -6,8 +6,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import se.lexicon.g49todoapi.domain.dto.PersonDTOForm;
 import se.lexicon.g49todoapi.domain.dto.UserDTOForm;
 import se.lexicon.g49todoapi.domain.dto.UserDTOView;
+import se.lexicon.g49todoapi.domain.entity.Person;
 import se.lexicon.g49todoapi.service.UserServiceImpl;
 
 @AllArgsConstructor
@@ -26,6 +28,10 @@ public class UserController {
     @PostMapping("/")
     public ResponseEntity<UserDTOView> doRegister(@RequestBody @Valid UserDTOForm userDTOForm) { //validation in DTOForm
         UserDTOView responseBody = userService.register(userDTOForm);
+
+        Person newPerson = new Person();
+
+
         return ResponseEntity.status(HttpStatus.CREATED).body(responseBody);
     }
 

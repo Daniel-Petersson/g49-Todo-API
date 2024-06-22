@@ -1,7 +1,5 @@
 package se.lexicon.g49todoapi.domain.dto;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.util.Set;

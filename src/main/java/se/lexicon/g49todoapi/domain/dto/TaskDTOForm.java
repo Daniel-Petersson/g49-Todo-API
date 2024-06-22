@@ -1,7 +1,6 @@
 package se.lexicon.g49todoapi.domain.dto;
 
 import lombok.*;
-import se.lexicon.g49todoapi.domain.entity.Person;
 
 import java.time.LocalDate;
 @Getter

@@ -19,7 +19,7 @@ public class User {
     @Column(updatable = false)//permanent
     private String email;
 
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false, length = 100)
     private String password;
     private boolean expired;
 

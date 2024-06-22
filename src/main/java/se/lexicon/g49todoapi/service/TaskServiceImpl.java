@@ -2,14 +2,10 @@ package se.lexicon.g49todoapi.service;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.lexicon.g49todoapi.Repository.PersonRepository;
 import se.lexicon.g49todoapi.Repository.TaskRepository;
-import se.lexicon.g49todoapi.domain.dto.PersonDTOView;
-import se.lexicon.g49todoapi.domain.dto.TaskDTOForm;
-import se.lexicon.g49todoapi.domain.dto.TaskDTOView;
-import se.lexicon.g49todoapi.domain.dto.UserDTOView;
+import se.lexicon.g49todoapi.domain.dto.*;
 import se.lexicon.g49todoapi.domain.entity.Person;
 import se.lexicon.g49todoapi.domain.entity.Task;
 import se.lexicon.g49todoapi.exeption.DataNotFoundException;
@@ -18,6 +14,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 @AllArgsConstructor
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -42,6 +40,8 @@ public class TaskServiceImpl implements TaskService {
                 .done(taskDTOForm.isDone())
                 .person(person)
                 .build();
+
+        person.getTasks().add(task);
         Task savedTask = taskRepository.save(task);
 
         return convertToDTOView(savedTask);
@@ -53,22 +53,26 @@ public class TaskServiceImpl implements TaskService {
 
         return convertToDTOView(task);
     }
-    //Todo
+
     @Override
     @Transactional
     public TaskDTOView update(TaskDTOForm taskDTOForm) {
-        /*if (taskDTOForm == null) throw new IllegalArgumentException("Form cannot be empty");
+        if (taskDTOForm == null) throw new IllegalArgumentException("Form cannot be empty");
         Task existingTask = taskRepository.findById(taskDTOForm.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Task with the id: " + taskDTOForm.getId() + " not found"));
-        Person person = personRepository.findById(taskDTOForm.getPerson().getId()).orElseThrow(()-> new IllegalArgumentException("Person with the id: "+ taskDTOForm.getPerson().getId() + " not found"));
+        Long assignedPersonId = taskDTOForm.getAssignedPerson();
+        if (assignedPersonId == null) {
+            throw new IllegalArgumentException("Assigned person id cannot be null");
+        }
+        Person person = personRepository.findById(assignedPersonId)
+                .orElseThrow(() -> new IllegalArgumentException("Person with the id: " + assignedPersonId + " not found"));
         existingTask.setTitle(taskDTOForm.getTitle());
         existingTask.setDescription(taskDTOForm.getDescription());
         existingTask.setDeadline(taskDTOForm.getDeadline());
         existingTask.setDone(taskDTOForm.isDone());
         existingTask.setPerson(person);
         Task updatedTask = taskRepository.save(existingTask);
-        return convertToDTOView(updatedTask);*/
-        return null;
+        return convertToDTOView(updatedTask);
     }
 
     @Override
@@ -135,6 +139,12 @@ public class TaskServiceImpl implements TaskService {
                         .name(task.getPerson().getName())
                         .user(UserDTOView.builder()
                                 .email(task.getPerson().getUser().getEmail())
+                                .roles(task.getPerson().getUser().getRoles().stream()
+                                        .map(role -> RoleDTOView.builder()
+                                                .id(role.getId())
+                                                .name(role.getName())
+                                                .build())
+                                        .collect(Collectors.toSet()))
                                 .build())
                         .build())
                 .build();

@@ -14,7 +14,6 @@ import se.lexicon.g49todoapi.exeption.DataDuplicateException;
 import se.lexicon.g49todoapi.exeption.DataNotFoundException;
 import se.lexicon.g49todoapi.util.CustomPasswordEncoder;
 
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 

@@ -27,7 +27,7 @@ public class Person {
     @JoinColumn(name = "user_email")
     private User user;
 
-    @OneToMany(mappedBy = "person")
+    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER)
     private List<Task> tasks = new ArrayList<>();
 
     public Person(String name) {
